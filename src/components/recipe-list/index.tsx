@@ -27,8 +27,8 @@ export default function RecipeList({ recipeList }: RecipeListProps) {
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
                     {recipeList && recipeList.length > 0 ? 
                         recipeList.map((recipe: Recipe) => (
-                            <Link key={recipe.id} href={`/recipe-list/${recipe.id}`}>
-                                <Card>
+                            <Card key={recipe.id}>
+                                <Link href={`/recipe-list/${recipe.id}`}>
                                     <CardContent className="bg-white rounded-md overflow-hidden shadow-md cursor-pointer hover:scale-[1.1] transition-all">
                                         <div className="w-full aspect-w-16 aspect-h-8 lg:h-80">
                                             <img
@@ -47,8 +47,8 @@ export default function RecipeList({ recipeList }: RecipeListProps) {
                                             </div>
                                         </div>
                                     </CardContent>
-                                </Card>
-                            </Link>
+                                </Link>
+                            </Card>
                         )) : null
                     }
                 </div>
