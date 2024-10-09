@@ -1,43 +1,44 @@
+import { Card, CardContent } from "@/components/ui/card";
 import Link from "next/link";
+import Image from "next/image";  // Import thẻ Image từ next/image
 
-export default function RecipeDetailsItem({ getRecipeDetails }) {
+interface RecipeDetailsProps {
+    recipe: {
+        id: number;
+        name: string;
+        image: string;
+        rating: number;
+        cuisine: string;
+    };
+}
+
+export default function RecipeDetails({ recipe }: RecipeDetailsProps) {
     return (
-        <div>
-            <Link href={"/recipe-list"}>Go to recipe list</Link>
-            <div className="p-6 lg:max-w-6x1 max-w-2x1 mx-auto">
-                <div className="grid items-start grid-cols-1 lg:grid-cols-2 gap-10">
-                    <div className="w-full lg:sticky top-0 sm:flex gap-2">
-                        <img
-                            src={getRecipeDetails?.image}
-                            name={getRecipeDetails?.name}
-                            className="w-4/5 rounded object-cover"
+        <div className="p-4 mx-auto lg:max-w-6xl md:max-w-4xl sm:max-w-full">
+            <h2 className="text-4xl font-bold text-gray-800 mb-12">Recipe Details</h2>
+            <Link href={"/"}>Go Home</Link>
+            <Card>
+                <CardContent className="bg-white rounded-md overflow-hidden shadow-md cursor-pointer hover:scale-[1.1] transition-all">
+                    <div className="w-full aspect-w-16 aspect-h-8 lg:h-80 relative">
+                        <Image
+                            src={recipe.image}  // Sử dụng thẻ Image thay vì img
+                            alt={recipe.name}    // Thêm alt cho ảnh
+                            layout="fill"        // Điều chỉnh kích thước tự động
+                            objectFit="cover"    // Ảnh bao phủ toàn bộ khung chứa
+                            objectPosition="top" // Canh ảnh theo vị trí trên cùng
                         />
                     </div>
-                    <div>
-                        <h2 className="text-3xl font-extrabold text-gray-950">
-                            {getRecipeDetails?.name}
-                        </h2>
-                        <div className="gap-4 mt-5">
-                            <p className="text-2xl text-gray-700">
-                                {getRecipeDetails?.mealType[0]}
-                            </p>
-                        </div>
-                        <div className="mt-5">
-                            <p className="text-2xl text-gray-800">
-                                {getRecipeDetails?.cuisine}
-                            </p>
-                        </div>
-                        <div className="mt-5">
-                            <h3 className="text-lg font-boil text-gray-700">Ingredients</h3>
-                            <ul className="space-y-3 list-disc mt-4 pl-4 text-sm text-gray-700">
-                                {
-                                    getRecipeDetails?.ingredients.map(item => <li>{item}</li>)
-                                }
-                            </ul>
+                    <div className="p-6">
+                        <h3 className="text-lg font-bold text-gray-900">{recipe.name}</h3>
+                        <div className="mt-4 flex items-center flex-wrap gap-2">
+                            <p className="text-lg text-gray-600">Rating: {recipe.rating}</p>
+                            <div className="ml-auto">
+                                <p className="text-lg text-gray-600 font-boid">{recipe.cuisine}</p>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div>
+                </CardContent>
+            </Card>
         </div>
     );
 }

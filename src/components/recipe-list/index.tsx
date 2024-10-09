@@ -1,8 +1,6 @@
-import {
-    Card,
-    CardContent,
-} from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import Link from "next/link";
+import Image from "next/image";  // Import thẻ Image từ next/image
 
 interface Recipe {
     id: number;
@@ -27,14 +25,16 @@ export default function RecipeList({ recipeList }: RecipeListProps) {
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
                     {recipeList && recipeList.length > 0 ? 
                         recipeList.map((recipe: Recipe) => (
-                            <Card key={recipe.id}>
+                            <Card key={recipe.id}>  {/* Thêm key cho thẻ Card */}
                                 <Link href={`/recipe-list/${recipe.id}`}>
                                     <CardContent className="bg-white rounded-md overflow-hidden shadow-md cursor-pointer hover:scale-[1.1] transition-all">
-                                        <div className="w-full aspect-w-16 aspect-h-8 lg:h-80">
-                                            <img
-                                                src={recipe.image}
-                                                alt={recipe.name}
-                                                className="h-full w-full object-cover object-top"
+                                        <div className="w-full aspect-w-16 aspect-h-8 lg:h-80 relative">
+                                            <Image
+                                                src={recipe.image}  // Sử dụng thẻ Image thay vì img
+                                                alt={recipe.name}    // Thêm alt cho ảnh
+                                                layout="fill"        // Điều chỉnh kích thước tự động
+                                                objectFit="cover"    // Ảnh bao phủ toàn bộ khung chứa
+                                                objectPosition="top" // Canh ảnh theo vị trí trên cùng
                                             />
                                         </div>
                                         <div className="p-6">
